@@ -1,4 +1,45 @@
 <div id="{{ partial.patternPartial }}" class="sg-pattern">
+<ul>
+	<li>
+	<h2><a href="../../patterns/{{ partial.patternLink }}" class="patternLink" data-patternpartial="{{ partial.patternPartial }}">{{ partial.patternName }}</a></h2>
+	{% if partial.patternDescExists %}
+		<div class="sg-pattern-desc">
+			<p>{{ partial.patternDesc | raw }}</p>
+			{% for patternDescAddition in partial.patternDescAdditions %}
+				{{ patternDescAddition | raw }}
+			{% endfor %}
+		</div>
+	{% endif %}
+	<div class="sg-pattern-extra-lineage">
+	<h3 class="sg-pattern-extra-name">Lineages</h3>
+	{% if partial.patternLineageExists %}
+		<div class="sg-pattern-extra-lineage">
+			<h4>The <span class="sg-pattern-extra-lineage-name">{{ partial.patternPartial }}</span> pattern contains the following pattern(s): </h4>
+			<ul>
+			{% for patternLineage in partial.patternLineages %}
+				<li> <a href="{{ patternLineage.lineagePath }}" class="{% if patternLineage.lineageState %}sg-pattern-state {{ patternLineage.lineageState }} {% endif %}" data-patternpartial="{{ patternLineage.lineagePattern }}">{{ patternLineage.lineagePattern }}</a></li>
+			{% endfor %}
+			</ul>
+		</div>
+	{% endif %}
+	{% if partial.patternLineageRExists %}
+		<div class="sg-pattern-extra-lineage">
+			<h4>The <span class="sg-pattern-extra-lineage-name">{{ partial.patternPartial }}</span> pattern is included in the following pattern(s): </h4>
+			<ul>
+			{% for patternLineageR in partial.patternLineagesR %}
+				<li> <a href="{{ patternLineageR.lineagePath }}" class="{% if patternLineageR.lineageState %}sg-pattern-state {{ patternLineageR.lineageState }} {% endif %}" data-patternpartial="{{ patternLineageR.lineagePattern }}">{{ patternLineageR.lineagePattern }}</a></li>
+			{% endfor %}
+			</ul>
+		</div>
+	{% endif %}
+	{% if not partial.patternLineageEExists %}
+		The <span class="sg-pattern-extra-lineage-name">{{ partial.patternPartial }}</span> pattern doesn't have any lineage information.
+	{% endif %}
+</div>
+
+	</li>
+</ul>
+{% if false %}
 	<div class="sg-pattern-head">
 		<h3><a href="../../patterns/{{ partial.patternLink }}" class="patternLink" data-patternpartial="{{ partial.patternPartial }}">{{ partial.patternName }}</a></h3>
 		<div class="sg-pattern-head-actions">
@@ -77,4 +118,5 @@
 			</div>
 		{% endif %}
 	</div>
+{% endif %}
 </div>
